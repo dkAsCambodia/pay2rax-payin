@@ -12,8 +12,8 @@ if (!empty($_POST)) {
     $dated=date("Y-m-d H:i:s");
     $Datetime=date("YmdHis");
     //yyyyMMddHHmmss // echo $dated;
-    $FrontURI = "https://payin.implogix.com/api/h2p/H2pPayinResponse.php";
-    $BackURI = "https://payin.implogix.com/api/h2p/H2pPayinResponse.php";
+    $FrontURI = "https://payin.pay2rax.com/api/h2p/H2pPayinResponse.php";
+    $BackURI = "https://payin.pay2rax.com/api/h2p/H2pPayinResponse.php";
     //$SecurityCode="r0fxPapA1OFmT1DO4cMu";   // for h2p staging
     $SecurityCode = $_POST['SecurityCode']; // for h2p production
     $Keystring= $Merchant.$payin_request_id.$Customer.$Amount.$Currency.$Datetime.$SecurityCode.$client_ip;

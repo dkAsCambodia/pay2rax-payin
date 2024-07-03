@@ -12,8 +12,8 @@ if (!empty($_POST)) {
     $dated = date("Y-m-d h:i:sA");
     $Datetime = date("YmdHis");
     //yyyyMMddHHmmss // echo $dated;
-    $FrontURI = "https://payin.implogix.com/api/powerpay88/response.php";
-    $BackURI = "https://payin.implogix.com/api/powerpay88/response.php";
+    $FrontURI = "https://payin.pay2rax.com/api/powerpay88/response.php";
+    $BackURI = "https://payin.pay2rax.com/api/powerpay88/response.php";
     //$SecurityCode="r0fxPapA1OFmT1DO4cMu";   // for powerpay88 staging
     $SecurityCode = $_POST['SecurityCode']; // for powerpay88 production
     $Keystring = $Merchant . $payin_request_id . $Customer . $Amount . $Currency . $Datetime . $SecurityCode . $client_ip;

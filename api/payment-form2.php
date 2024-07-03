@@ -72,7 +72,7 @@ function payout(){
             "to_bank_code" =>  $bank_code,
             "to_account_no" =>  $customer_account_number,
             "to_name" =>  $customer_name,
-            "callback_url" =>  "https://payin.implogix.com/api/vizpay/viz_payout_response.php"
+            "callback_url" =>  "https://payin.pay2rax.com/api/vizpay/viz_payout_response.php"
         ];
         $post_data['signature'] = $vizpay->gen_signature($post_data);
         $resArray = $vizpay->call_url('/withdraw','POST', $post_data);

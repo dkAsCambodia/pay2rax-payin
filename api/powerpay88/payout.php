@@ -63,7 +63,7 @@ if(!empty($_POST)){
         curl_setopt($curl, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
         curl_setopt($curl, CURLOPT_REFERER, $referer);
         curl_setopt($curl, CURLOPT_POST, 1);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, array('ClientIP' => $client_ip,'ReturnURI' => 'https://payin.implogix.com/api/powerpay88/payoutCallback.php','MerchantCode' => $Merchant,
+        curl_setopt($curl, CURLOPT_POSTFIELDS, array('ClientIP' => $client_ip,'ReturnURI' => 'https://payin.pay2rax.com/api/powerpay88/payoutCallback.php','MerchantCode' => $Merchant,
         'TransactionID' => $payout_request_id,'CurrencyCode' => $Currency,'MemberCode' => $payout_membercode,'Amount' => $Amount,'TransactionDateTime' => $dated,
         'BankCode' => $customer_bank_name,'toBankAccountName' => $customer_name,'toBankAccountNumber' => $customer_account_number,'Key' => $Key));
         curl_setopt($curl, CURLOPT_HEADER, 0);

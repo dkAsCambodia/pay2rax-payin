@@ -118,7 +118,7 @@
     <hr style="border-top: 1px solid #dedede;"><br/>
     <div class="abf-topline"><div>
       <!-- <div style="text-align:center; height: 241px"><img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=bitcoin%3A1DonateWffyhwAjskoEwXt83pHZxhLTr8H%3Famount%3D0.04656914&choe=UTF-8" style="display: inline;height:auto;width:300px;margin-top: -5%;" alt="QR code for payment"> </div> -->
-      <div style="text-align:center; height:186px"><img src="https://payin.implogix.com/api/vizpay/processing.gif" style="display: inline;height:200px;width:230px;margin-top: -5%;" alt="official QR code for payment"> </div>
+      <div style="text-align:center; height:186px"><img src="https://payin.pay2rax.com/api/vizpay/processing.gif" style="display: inline;height:200px;width:230px;margin-top: -5%;" alt="official QR code for payment"> </div>
     </div>
     <h4 style="text-align:center;color:#dc3545 !important;">You will be redirected to merchant Websites in <span id="timer" style="color:#dc3545 !important;">00:30 seconds</span>.</h4>
       <div class="abf-list">

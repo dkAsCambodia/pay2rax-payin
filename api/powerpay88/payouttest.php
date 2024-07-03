@@ -11,13 +11,13 @@ function generateRandomString($length = 3)
 }
 
 // $apiUrl = 'http://127.0.0.1:8000/api/gpayout';
-$apiUrl = 'https://payment.implogix.com/api/gpayout';
+$apiUrl = 'https://payment.pay2rax.com/api/gpayout';
 
 $params = [
     'merchant_code' => 'testmerchant005',
     'product_id' => '11',     //1/11
     'transaction_id' => "GTRN" . time() . generateRandomString(3),
-    'callback_url' => 'https://payin.implogix.com/payout/payout_response_url.php',
+    'callback_url' => 'https://payin.pay2rax.com/payout/payout_response_url.php',
     // 'callback_url' => 'http://localhost/payin/payout/payout_response_url.php',
     'currency' => 'THB',
     'amount' => '100.00',     //need amount in float two digit

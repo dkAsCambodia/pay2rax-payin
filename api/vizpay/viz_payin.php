@@ -45,7 +45,7 @@
                 echo "Error: " . $e->getMessage(); die;
             }
 
-			$redirecturl='https://payin.implogix.com/api/payment-form.php';
+			$redirecturl='https://payin.pay2rax.com/api/payment-form.php';
 			$callbackURL=$redirecturl.'?amount='.base64_encode($Amount).'&ref_bank_code='.base64_encode($customer_bank_name).'&ref_account_no='.base64_encode($customer_account_number).'&order_id='.base64_encode($payin_request_id).'&ref_name='.base64_encode($customer_name);
 			?>
 			<script>
@@ -120,14 +120,14 @@
 			// 	"ref_account_no" =>  $customer_account_number, 
 			// 	"ref_name" =>  $customer_name, 
 			// 	"user_id" =>  "1234", 
-			// 	"callback_url" =>  "https://payin.implogix.com/api/vizpay/viz_payin_response.php" 
+			// 	"callback_url" =>  "https://payin.pay2rax.com/api/vizpay/viz_payin_response.php" 
 			// ];
 			// // echo "<pre>"; print_r($post_data); die;
 			// $post_data['signature'] = $vizpay->gen_signature($post_data);
 			// $result = $vizpay->call_url('/deposit/qrcode','POST', $post_data);
 			// // echo "<pre>"; print_r($result); 
 			// if(!empty($result)){
-			// 	$redirecturl='https://payin.implogix.com/api/payment.php';
+			// 	$redirecturl='https://payin.pay2rax.com/api/payment.php';
 			// 	$callbackURL=$redirecturl.'?token='.base64_encode($result['result']['image']).'&amount='.base64_encode($Amount).'&ref_bank_code='.base64_encode($customer_bank_name).'&ref_account_no='.base64_encode($customer_account_number).'&order_id='.base64_encode($payin_request_id).'&ref_name='.base64_encode($customer_name);
 			// 	?>
 			// 	<script>
