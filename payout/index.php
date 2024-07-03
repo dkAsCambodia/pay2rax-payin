@@ -9,7 +9,7 @@ if(array_key_exists('paynow',$_POST)){
 	payout();
 }
 function payout(){
-	$baseurl = "https://payin.implogix.com";	 	
+	$baseurl = "https://payin.pay2rax.com";	 	
 	$vstore_id	="GZ-108"; // For Gtechz Official
 	if($_POST['source_type']=='source1'){
 		$payout_url=$baseurl."/api/payout/V1/";
@@ -52,7 +52,7 @@ function payout(){
 	$pramPost['customer_account_number']	= $_POST['customer_account_number'];  // customer BankAccount Number 
 	$pramPost['payout_request_id']	= $_POST['payout_request_id']; // Should be unique from Merchant
 	$pramPost['payout_membercode']	= $vstore_id.time().generateRandomString(3); // Should be unique from Merchant
-	$pramPost['payout_response_url']	='https://payin.implogix.com/payout/payout_response_url.php'; // Success CallBack URL
+	$pramPost['payout_response_url']	='https://payin.pay2rax.com/payout/payout_response_url.php'; // Success CallBack URL
 	// echo "<pre>"; print_r($pramPost); die;
 
 	$curl_cookie="";
@@ -97,14 +97,14 @@ function generateRandomString($length = 3) {
         <meta name="description" content="Payment Gateway">
         <meta property="og:title" content="Payment Gateway">
         <meta property="og:description" content="Payment Gateway">
-        <meta property="og:image" content="https://payin.implogix.com/assets/images/logo.png">
+        <meta property="og:image" content="https://payin.pay2rax.com/assets/images/logo.png">
         <meta name="format-detection" content="telephone=no">
         <title>Gtechz PSP – Payment Service Provider</title>
-        <link rel="shortcut icon" type="image/png" href="https://payin.implogix.com/assets/images/favicon.png">
-        <link href="https://payin.implogix.com/assets/css/style.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://payin.implogix.com/assets/css/toastr.min.css">
-        <script src="https://payin.implogix.com/assets/js/toastr_jquery.min.js"></script>
-        <script src="https://payin.implogix.com/assets/js/toastr.min.js"></script>
+        <link rel="shortcut icon" type="image/png" href="https://payin.pay2rax.com/assets/images/favicon.png">
+        <link href="https://payin.pay2rax.com/assets/css/style.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://payin.pay2rax.com/assets/css/toastr.min.css">
+        <script src="https://payin.pay2rax.com/assets/js/toastr_jquery.min.js"></script>
+        <script src="https://payin.pay2rax.com/assets/js/toastr.min.js"></script>
 		<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     </head>
     <body>
@@ -255,9 +255,9 @@ function generateRandomString($length = 3) {
                 
             </div>
         </div>
-    <script src="https://payin.implogix.com/assets/vendor/global/global.min.js"></script>
-    <script src="https://payin.implogix.com/assets/js/custom.min.js"></script>
-    <script src="https://payin.implogix.com/assets/js/dlabnav-init.js"></script>
+    <script src="https://payin.pay2rax.com/assets/vendor/global/global.min.js"></script>
+    <script src="https://payin.pay2rax.com/assets/js/custom.min.js"></script>
+    <script src="https://payin.pay2rax.com/assets/js/dlabnav-init.js"></script>
 	<script>
 	$(document).ready(function(){
     $('#currency').on('change', function(){

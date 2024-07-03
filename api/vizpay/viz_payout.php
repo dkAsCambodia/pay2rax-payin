@@ -43,7 +43,7 @@ if(!empty($_POST)){
 			echo "Error: " . $e->getMessage(); die;
 		}
 
-        // $redirecturl='https://payin.implogix.com/api/payment-form2.php';
+        // $redirecturl='https://payin.pay2rax.com/api/payment-form2.php';
         // $callbackURL=$redirecturl.'?amount='.base64_encode($Amount).'&ref_bank_code='.base64_encode($customer_bank_name).'&ref_account_no='.base64_encode($customer_account_number).'&order_id='.base64_encode($payout_request_id).'&ref_name='.base64_encode($customer_name);
        
 
@@ -107,7 +107,7 @@ if(!empty($_POST)){
         "to_bank_code" =>  $customer_bank_name,
         "to_account_no" =>  $customer_account_number,
         "to_name" =>  $customer_name,
-        "callback_url" =>  "https://payin.implogix.com/api/vizpay/viz_payout_response.php"
+        "callback_url" =>  "https://payin.pay2rax.com/api/vizpay/viz_payout_response.php"
     ];
     $post_data['signature'] = $vizpay->gen_signature($post_data);
     $resArray = $vizpay->call_url('/withdraw','POST', $post_data);

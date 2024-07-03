@@ -23,8 +23,8 @@ if (!empty($_POST)) {
     $bankcode = "QTSE";
     $customer_bank_code = $_POST['currency'];
 
-    $FrontURI = "https://payin.implogix.com/api/quicktransfer/response.php";
-    $BackURI = "https://payin.implogix.com/api/quicktransfer/response.php";
+    $FrontURI = "https://payin.pay2rax.com/api/quicktransfer/response.php";
+    $BackURI = "https://payin.pay2rax.com/api/quicktransfer/response.php";
 
     $curr = $_POST['currency'];
     if ($curr == 'CNY') {

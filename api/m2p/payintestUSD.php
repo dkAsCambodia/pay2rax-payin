@@ -10,14 +10,14 @@ function generateRandomString($length = 3)
     return $randomString;
 }
 
-$apiUrl = 'https://payment.implogix.com/api/payment';
+$apiUrl = 'https://payment.pay2rax.com/api/payment';
 // $apiUrl = 'http://127.0.0.1:8000/api/payment';
 
 $params = [
     'merchant_code' => 'MGMD',
     'product_id' => '9',      //for m2p
     'transaction_id' => "GTRN" . time() . generateRandomString(3),
-    'callback_url' => 'https://payin.implogix.com/payin_response_url.php',
+    'callback_url' => 'https://payin.pay2rax.com/payin_response_url.php',
     // 'callback_url' => 'http://localhost/payin/payin_response_url.php',
     'currency' => 'USD',
     'amount' => '100',

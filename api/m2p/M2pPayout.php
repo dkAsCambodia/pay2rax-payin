@@ -71,7 +71,7 @@ if(!empty($_POST)){
                 pform.submit();
             }
         </script>
-            <form action="https://payin.implogix.com/api/m2p/M2pPayoutResponse.php" method="POST">
+            <form action="https://payin.pay2rax.com/api/m2p/M2pPayoutResponse.php" method="POST">
                 <!-- payout_request_id -->
                 <input  name="payout_request_id" type="hidden" value="<?php echo $payout_request_id; ?>">
                 <!-- Currency -->
@@ -85,7 +85,7 @@ if(!empty($_POST)){
                 <!-- Wallet Address -->
                   <input name="address" id="address" type="hidden" value="<?php echo $customer_account_number; ?>"> 
                 <!-- CallbackUrl -->
-                  <input  name="callbackUrl" id="callbackUrl" type="hidden" value="https://payin.implogix.com/api/m2p/M2pPayoutCallback.php">
+                  <input  name="callbackUrl" id="callbackUrl" type="hidden" value="https://payin.pay2rax.com/api/m2p/M2pPayoutCallback.php">
                 <!-- Signature -->
                   <input name="signature" id="signature" type="hidden" value="" readonly>
                 <!-- ApiToken -->

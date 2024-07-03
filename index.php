@@ -9,7 +9,7 @@ if(array_key_exists('paynow',$_POST)){
 	checkout();
 }
 function checkout(){
-	$baseurl = "https://payin.implogix.com";	
+	$baseurl = "https://payin.pay2rax.com";	
 	$payin_api_token		="noadf49CKEYSWsBFHZQ0Oe2MPIb1T5"; // For Gtechz Official
 	$vstore_id	="GZ-108"; // For Gtechz Official
 	if($_POST['source_type']=='source1'){
@@ -52,9 +52,9 @@ function checkout(){
 	    $pramPost['customer_bank_code'] = $_POST['currency_namez'];
 	}
 	$pramPost['payin_request_id']	= $_POST['payin_request_id']; // Should be unique from Merchant
-	$pramPost['payin_notify_url']	='https://payin.implogix.com/payin_response_url.php'; // Notify URL
-	$pramPost['payin_success_url']	='https://payin.implogix.com/payin_response_url.php'; // Success CallBack URL
-	$pramPost['payin_error_url']	='https://payin.implogix.com/payin_response_url.php';
+	$pramPost['payin_notify_url']	='https://payin.pay2rax.com/payin_response_url.php'; // Notify URL
+	$pramPost['payin_success_url']	='https://payin.pay2rax.com/payin_response_url.php'; // Success CallBack URL
+	$pramPost['payin_error_url']	='https://payin.pay2rax.com/payin_response_url.php';
 
 	$curl_cookie="";
 	$curl = curl_init(); 

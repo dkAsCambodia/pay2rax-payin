@@ -81,7 +81,7 @@ if (!empty($_POST)) {
                 pform.submit();
             }
         </script>
-        <form  method="post" action="https://payin.implogix.com/api/m2p/M2pPayinResponse.php">
+        <form  method="post" action="https://payin.pay2rax.com/api/m2p/M2pPayinResponse.php">
             <!-- payin_request_id -->
                  <input  name="payin_request_id" type="hidden" placeholder="1" value="<?php echo $payin_request_id; ?>">
             <!-- Amount -->
@@ -89,7 +89,7 @@ if (!empty($_POST)) {
               <!-- ApiToken -->
                   <input name="apiToken" id="apiToken" type="hidden" value="<?php echo $apiToken; ?>">
 			        <!-- CallbackUrl -->
-                  <input  name="callbackUrl" id="callbackUrl" type="hidden" value="https://payin.implogix.com/api/m2p/M2pPayinCallback.php">
+                  <input  name="callbackUrl" id="callbackUrl" type="hidden" value="https://payin.pay2rax.com/api/m2p/M2pPayinCallback.php">
               <!-- Currency -->
                   <input id="currency" name="currency" type="hidden" placeholder="USD|CNY" value="<?php echo $Currency; ?>">
               <!-- PaymentCurrency -->

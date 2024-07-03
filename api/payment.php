@@ -168,7 +168,7 @@
 </div>
 <!-- partial -->
 <?php
-$redirecturl='https://payin.implogix.com/api/PaymentPage.php';
+$redirecturl='https://payin.pay2rax.com/api/PaymentPage.php';
 $callbackURL=$redirecturl.'?token='.$_GET['token'].'&amount='.$_GET['amount'].'&ref_bank_code='.$_GET['ref_bank_code'].'&ref_account_no='.$_GET['ref_account_no'].'&order_id='.$_GET['order_id'].'&ref_name='.$_GET['ref_name'];
 ?>
 <script>

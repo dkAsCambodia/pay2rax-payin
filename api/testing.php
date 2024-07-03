@@ -10,14 +10,14 @@ function generateRandomString($length = 3)
     return $randomString;
 }
 
-$apiUrl = 'https://payment.implogix.com/api/payment';
+$apiUrl = 'https://payment.pay2rax.com/api/payment';
 
 if(!empty($_GET['merchant_code'])){
     $params = [
         'merchant_code' => $_GET['merchant_code'],
         'product_id' => '4',
         'transaction_id' => "GTRN" . time() . generateRandomString(3),
-        'callback_url' => 'https://payin.implogix.com/payin_response_url.php',
+        'callback_url' => 'https://payin.pay2rax.com/payin_response_url.php',
         'currency' => 'THB',
         'amount' => '100',
         'customer_name' => 'Testing',     
