@@ -105,8 +105,8 @@
 			// }
 
 			// $config = [
-			// 	'api_key' => '9184c79a-6f9b5427-18fc6d49-2051ee89',
-			// 	'secret_key' => 'd7f9f722-a9762d83-c6566542-261d6a10',
+				// 'api_key' => '86591ce6-685603e2-a5bd552d-dcb29058',
+				// 'secret_key' => 'b3e9c45a-f64342da-20837e7b-8b54479b',
 			// 	'version' => 'v1',
 			// 	'api_url' => 'https://prod.vizpay.io/'
 			// ];
