@@ -93,8 +93,8 @@ if(!empty($_POST)){
         }
     }
     $config = [
-        'api_key' => '07c784da-1ab7825e-d5742394-07a47b63',
-        'secret_key' => 'ef2bc47d-31ecf9a6-97bb9144-228b38dc',
+        'api_key' => '86591ce6-685603e2-a5bd552d-dcb29058',
+		'secret_key' => 'b3e9c45a-f64342da-20837e7b-8b54479b',
         'version' => 'v1',
         'api_url' => 'https://apipoint.first2pay.io/'
     ];
