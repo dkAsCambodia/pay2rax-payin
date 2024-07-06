@@ -144,9 +144,9 @@ function generateRandomString($length = 3) {
 											<option value="">---</option>
 											<option value="source1">source1</option>
 											<option value="source2">source2</option>
-											<option value="source7">source7</option>
+											<!-- <option value="source7">source7</option>
 											<option value="source8">source8</option>
-											<option value="source9">source9</option>
+											<option value="source9">source9</option> -->
 										</select>
                                 </div>
                             </div>
