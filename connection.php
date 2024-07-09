@@ -8,7 +8,7 @@
 $host     = "localhost";
 $user     = "implogix";
 $password = "password";
-$database = "payin";
+$database = "payin_pay2rax_db";
 
 $link   = mysqli_connect($host, $user, $password, $database);
 //if (mysqli_connect_errno($link)) {
