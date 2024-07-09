@@ -12,7 +12,9 @@ function checkout(){
 	$baseurl = "https://payin.pay2rax.com";	
 	$payin_api_token		="noadf49CKEYSWsBFHZQ0Oe2MPIb1T5"; // For Gtechz Official
 	$vstore_id	="GZ-108"; // For Gtechz Official
-	if($_POST['source_type']=='source1'){
+    if($_POST['source_type']=='paypal'){
+        $payin_url="https://payment.pay2rax.com/api/paypal/checkout";
+    }elseif($_POST['source_type']=='source1'){
 		$payin_url=$baseurl."/api/V1/";
 	}else{
 		$payin_url=$baseurl."/api/V5/";
@@ -37,15 +39,10 @@ function checkout(){
 	$pramPost['product_name']	= 'test product';// Any Thing
 	$pramPost['remarks']	= "Checkout PayIn";
 	$pramPost['customer_name']	=$_POST['customer_name']; // Customer Name
-	$pramPost['customer_email']	=$_POST['customer_email'];
-	$pramPost['customer_addressline_1']	=$_POST['customer_addressline_1']; // Customer Address Line 1
-	$pramPost['customer_addressline_2']	='customer_addressline_2'; // Customer Address Line 2
-	$pramPost['customer_city']		=$_POST['customer_city']; // Customer City
-	$pramPost['customer_state']		=$_POST['customer_state']; // Customer State
-	$pramPost['customer_country']	=$_POST['customer_country']; // Customer Country
-	$pramPost['customer_zip']		=$_POST['customer_zip']; // Customer Zipcode
-	$pramPost['customer_phone']		=$_POST['customer_phone']; // Customer 787602
-	$pramPost['customer_bank_name']	=$_POST['bank_type']; // Customer 787602
+    $pramPost['customer_email'] =$_POST['customer_email'];
+    $pramPost['customer_phone'] =$_POST['customer_phone'];
+	$pramPost['merchant_code']	="testmerchant005";
+	
 	if($_POST['currency_namez']=="USD(Cambodia)"){
 	    $pramPost['customer_bank_code'] = "USD";
 	}else{
@@ -107,9 +104,7 @@ function generateRandomString($length = 3) {
     <script src="assets/js/toastr_jquery.min.js"></script>
     <script src="assets/js/toastr.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    </head>
-    <body>
-        <style>
+    <style>
              .invalid-feedback{
                 font-size: 14px;
             }
@@ -119,8 +114,15 @@ function generateRandomString($length = 3) {
             .form-control {
                 height: 2.5rem !important;
             }
+            .justify-content-center {
+                margin-top: 120px;
+            }
         </style>
+    </head>
+    <body>
+        
         <div class="authincation h-100">
+            <img src="https://pay2rax.com/wp-content/uploads/2024/06/cropped-Blue_Flat_Illustrated_Finance_Company_Logo_20240612_080918_0000-removebg-preview-100x80.png" height="50px">
             <div class="container h-100">
 <div class="row justify-content-center h-100 align-items-center">
     <div class="col-md-8">
@@ -128,29 +130,29 @@ function generateRandomString($length = 3) {
             <div class="row no-gutters">
                 <div class="col-xl-12">
                     <div class="auth-form">
-                        <h3 class="text-center mb-4"><b>Merchant Transfer or Deposit</b></h3>
+                        <h3 class="text-center mb-4"><b>Pay2rax Transfer or Deposit</b></h3>
                         <form class="form-horizontal" enctype="multipart-formdata" method="post" action="#">
-							<div class="row mb-2">
+							<div class="row mb-4">
                                 <label for="Reference" class="col-md-3 form-label">Reference ID</label>
                                 <div class="col-md-9">
 								<input class="form-control" name="payin_request_id" id="payin_request_id" placeholder="Enter Reference ID" value="<?php echo $referenceNo; ?>" required readonly type="text">
                                 </div>
                             </div>
-                            <div class="row mb-2">
+                            <div class="row mb-4">
                                 <label for="Source" class="col-md-3 form-label">Source</label>
                                 <div class="col-md-9">
 									<input type="hidden" name="source_typez" id="source_typez"/>
 										<select class="form-control select2-show-search form-select  text-dark" id="source_type" name="source_type" required data-placeholder="---" tabindex="-1" aria-hidden="true">
 											<option value="">---</option>
-											<option value="source1">source1</option>
-											<option value="source2">source2</option>
-											<!-- <option value="source7">source7</option>
-											<option value="source8">source8</option>
+											<!-- <option value="source1">source1</option> -->
+											<option value="paypal">Paypal</option>
+											 <option value="source7">Stripe</option>
+											<!--<option value="source8">source8</option>
 											<option value="source9">source9</option> -->
 										</select>
                                 </div>
                             </div>
-                            <div class="row mb-2">
+                            <div class="row mb-4">
                                 <label for="Currency" class="col-md-3 form-label">Currency</label>
                                 <div class="col-md-9">
 										<input type="hidden" name="currency_namez" id="currency_namez"/>
@@ -162,14 +164,14 @@ function generateRandomString($length = 3) {
 										</select>
                                 </div>
                             </div>
-                            <div class="row mb-2">
+                            <!-- <div class="row mb-2">
                                 <label for="Bank-Code" class="col-md-3 form-label">Bank Code</label>
                                 <div class="col-md-9">
 										<select class="form-control select2-show-search form-select  text-dark" id="bank_type" name="bank_type" required data-placeholder="---" tabindex="-1" aria-hidden="true">
 											<option value="">---</option>
 										</select>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="row mb-4">
                                 <label for="price" class="col-md-3 form-label">Amount</label>
                                 <div class="col-md-9">
@@ -194,7 +196,7 @@ function generateRandomString($length = 3) {
                                     <input type="text" class="form-control " name="customer_phone" id="customer_phone" placeholder="Enter your phone">
                                 </div>
                             </div>
-                            <div class="row mb-4">
+                            <!-- <div class="row mb-4">
                                 <label for="customer_addressline_1" class="col-md-3 form-label">Address Line 1</label>
                                 <div class="col-md-9">
                                     <input type="text" class="form-control " name="customer_addressline_1" id="customer_addressline_1" placeholder="Enter your address" required>
@@ -234,7 +236,7 @@ function generateRandomString($length = 3) {
                                 <div class="col-md-9">
                                     <input type="text" class="form-control " name="customer_zip" id="customer_zip" placeholder="Enter your zipcode" required>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="text-center">
                                 <button type="submit" name="paynow" id="paynow" class="btn btn-primary btn-block">Pay Now</button>
                             </div>
