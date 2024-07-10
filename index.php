@@ -14,6 +14,8 @@ function checkout(){
 	$vstore_id	="GZ-108"; // For Gtechz Official
     if($_POST['source_type']=='paypal'){
         $payin_url="https://payment.pay2rax.com/api/paypal/checkout";
+    }elseif($_POST['source_type']=='stripe'){
+        $payin_url="https://payment.pay2rax.com/api/stripe/checkout";
     }elseif($_POST['source_type']=='source1'){
 		$payin_url=$baseurl."/api/V1/";
 	}else{
@@ -42,6 +44,9 @@ function checkout(){
     $pramPost['customer_email'] =$_POST['customer_email'];
     $pramPost['customer_phone'] =$_POST['customer_phone'];
 	$pramPost['merchant_code']	="testmerchant005";
+    $pramPost['card_number'] =$_POST['card_number'];
+    $pramPost['expiration'] =$_POST['expiration'];
+    $pramPost['cvv'] =$_POST['cvv'];
 	
 	if($_POST['currency_namez']=="USD(Cambodia)"){
 	    $pramPost['customer_bank_code'] = "USD";
@@ -117,6 +122,9 @@ function generateRandomString($length = 3) {
             .justify-content-center {
                 margin-top: 120px;
             }
+            .hidden{
+                display: none;
+            }
         </style>
     </head>
     <body>
@@ -146,7 +154,7 @@ function generateRandomString($length = 3) {
 											<option value="">---</option>
 											<!-- <option value="source1">source1</option> -->
 											<option value="paypal">Paypal</option>
-											 <option value="source7">Stripe</option>
+											 <option value="stripe">Stripe</option>
 											<!--<option value="source8">source8</option>
 											<option value="source9">source9</option> -->
 										</select>
@@ -194,6 +202,26 @@ function generateRandomString($length = 3) {
                                 <label for="customer_phone" class="col-md-3 form-label">Phone Number</label>
                                 <div class="col-md-9">
                                     <input type="text" class="form-control " name="customer_phone" id="customer_phone" placeholder="Enter your phone">
+                                </div>
+                            </div>
+                            <div class="row mb-4 hidden cardFiled">
+                                <label for="card_number" class="col-md-3 form-label">Card Number</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control " name="card_number" id="card_number" placeholder="Card number" maxlength='16' required>
+                                </div>
+                            </div>
+                            <div class="row mb-4 hidden cardFiled">
+                                <label for="expiration" class="col-md-3 form-label">Expiration</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control expirationInput" name="expiration" id="expiration" placeholder="MM/YY" required>
+                                    <p class="expirationInput-warning text text-danger" style="display:none">Please fillup
+                                    correct!</p>
+                                </div>
+                            </div>
+                            <div class="row mb-4 hidden cardFiled">
+                                <label for="cvv" class="col-md-3 form-label">CVC</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="cvv" id="cvv" placeholder="Enter your cvv" required maxlength='3'>
                                 </div>
                             </div>
                             <!-- <div class="row mb-4">
@@ -282,25 +310,73 @@ function generateRandomString($length = 3) {
         }
     });
 
-    $('#bank_type').on('change', function(){
-        var bankval = $(this).val();
-        // alert(bankval);
-        if(bankval=='QTSE'){
-            var currency = $('#currency').val();
-            // alert(currency);
-            if(currency=='10'){     //for CNY
-                $('#price').val('1000');
-            }else if(currency=='5' || currency=='9'){   //for USD
-                $('#price').val('5');
-            }else if(currency=='2'){
-                $('#price').val('100');              //for THB
-            }else{
-                $('#price').val('100.00');   
-            }
-        }else{
-            $('#price').val('100.00');   
+    $('#source_type').on('change', function(){
+        var sourceval = $(this).val();
+        // alert(sourceval);
+        if (sourceval == 'stripe') {
+            $('.cardFiled').removeClass("hidden");
+        } else {
+            $('.cardFiled').addClass("hidden");
         }
     });
+
+     // On keyUp validate Expiry Moth and Year START
+     $(document).ready(function(){
+        $('.expirationInput').on('keyup', function(){
+            var val = $(this).val();
+            // Remove any non-numeric characters
+            val = val.replace(/\D/g,'');
+            if(val.length > 2){
+                // If more than 2 characters, trim it
+                val = val.slice(0,2) + '/' + val.slice(2);
+            }
+            else if (val.length === 2){
+                // If exactly 2 characters, add "/"
+                val = val + '/';
+            }
+            $(this).val(val);
+
+            // Check if the entered date is in the future
+            var today = new Date();
+            var currentYear = today.getFullYear().toString().substr(-2);
+            var currentMonth = today.getMonth() + 1;
+            var enteredYear = parseInt(val.substr(3));
+            var enteredMonth = parseInt(val.substr(0, 2));
+
+            if (enteredYear < currentYear || (enteredYear == currentYear && enteredMonth < currentMonth)) {
+                // Entered date is not in the future, clear the input
+                $('.expirationInput-warning').css("display", "block");
+                $('.expirationInput').addClass("inputerror");
+                $('button.card-btn').prop('disabled', true);
+                // alert("Please enter a future expiry date.");
+            }else{
+                $('.expirationInput-warning').css("display", "none");
+                $('.expirationInput').removeClass("inputerror");
+                $('button.card-btn').prop('disabled', false);
+            }
+        });
+    });
+    // On keyUp validate Expiry Moth and Year END
+
+    // $('#bank_type').on('change', function(){
+    //     var bankval = $(this).val();
+    //     // alert(bankval);
+    //     if(bankval=='QTSE'){
+    //         var currency = $('#currency').val();
+    //         // alert(currency);
+    //         if(currency=='10'){     //for CNY
+    //             $('#price').val('1000');
+    //         }else if(currency=='5' || currency=='9'){   //for USD
+    //             $('#price').val('5');
+    //         }else if(currency=='2'){
+    //             $('#price').val('100');              //for THB
+    //         }else{
+    //             $('#price').val('100.00');   
+    //         }
+    //     }else{
+    //         $('#price').val('100.00');   
+    //     }
+    // });
 });
 </script>
     </body>
