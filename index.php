@@ -213,7 +213,7 @@ function generateRandomString($length = 3) {
                             <div class="row mb-4 hidden cardFiled">
                                 <label for="expiration" class="col-md-3 form-label">Expiration</label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control expirationInput" name="expiration" id="expiration" placeholder="MM/YY" required>
+                                    <input type="text" class="form-control expirationInput" name="expiration" id="expiration" maxlength='5' placeholder="MM/YY" required>
                                     <p class="expirationInput-warning text text-danger" style="display:none">Please fillup
                                     correct!</p>
                                 </div>
