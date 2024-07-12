@@ -15,10 +15,15 @@ function checkout(){
     if($_POST['source_type']=='paypal'){
         $payin_url="https://payment.pay2rax.com/api/paypal/checkout";
     }elseif($_POST['source_type']=='stripe'){
-        $payin_url="https://payment.pay2rax.com/api/stripe/checkout";
-        $pramPost['card_number'] =$_POST['card_number'];
-        $pramPost['expiration'] =$_POST['expiration'];
-        $pramPost['cvv'] =$_POST['cvv'];
+        if(!empty($_POST['card_number']) && !empty($_POST['expiration']) && !empty($_POST['cvv'])){
+            $payin_url="https://payment.pay2rax.com/api/stripe/checkout";
+            $pramPost['card_number'] =$_POST['card_number'];
+            $pramPost['expiration'] =$_POST['expiration'];
+            $pramPost['cvv'] =$_POST['cvv'];
+        }else{
+            return "Card details is required!";
+        }
+        
     }elseif($_POST['source_type']=='source1'){
 		$payin_url=$baseurl."/api/V1/";
 	}else{
