@@ -16,6 +16,9 @@ function checkout(){
         $payin_url="https://payment.pay2rax.com/api/paypal/checkout";
     }elseif($_POST['source_type']=='stripe'){
         $payin_url="https://payment.pay2rax.com/api/stripe/checkout";
+        $pramPost['card_number'] =$_POST['card_number'];
+        $pramPost['expiration'] =$_POST['expiration'];
+        $pramPost['cvv'] =$_POST['cvv'];
     }elseif($_POST['source_type']=='source1'){
 		$payin_url=$baseurl."/api/V1/";
 	}else{
@@ -44,9 +47,6 @@ function checkout(){
     $pramPost['customer_email'] =$_POST['customer_email'];
     $pramPost['customer_phone'] =$_POST['customer_phone'];
 	$pramPost['merchant_code']	="testmerchant005";
-    $pramPost['card_number'] =$_POST['card_number'];
-    $pramPost['expiration'] =$_POST['expiration'];
-    $pramPost['cvv'] =$_POST['cvv'];
 	
 	if($_POST['currency_namez']=="USD(Cambodia)"){
 	    $pramPost['customer_bank_code'] = "USD";
@@ -207,13 +207,13 @@ function generateRandomString($length = 3) {
                             <div class="row mb-4 hidden cardFiled">
                                 <label for="card_number" class="col-md-3 form-label">Card Number</label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control " name="card_number" id="card_number" placeholder="Card number" maxlength='16' required>
+                                    <input type="text" class="form-control " name="card_number" id="card_number" placeholder="Card number" maxlength='16'>
                                 </div>
                             </div>
                             <div class="row mb-4 hidden cardFiled">
                                 <label for="expiration" class="col-md-3 form-label">Expiration</label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control expirationInput" name="expiration" id="expiration" maxlength='5' placeholder="MM/YY" required>
+                                    <input type="text" class="form-control expirationInput" name="expiration" id="expiration" maxlength='5' placeholder="MM/YY">
                                     <p class="expirationInput-warning text text-danger" style="display:none">Please fillup
                                     correct!</p>
                                 </div>
@@ -221,7 +221,7 @@ function generateRandomString($length = 3) {
                             <div class="row mb-4 hidden cardFiled">
                                 <label for="cvv" class="col-md-3 form-label">CVC</label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control" name="cvv" id="cvv" placeholder="Enter your cvv" required maxlength='3'>
+                                    <input type="text" class="form-control" name="cvv" id="cvv" placeholder="Enter your cvv" maxlength='3'>
                                 </div>
                             </div>
                             <!-- <div class="row mb-4">
