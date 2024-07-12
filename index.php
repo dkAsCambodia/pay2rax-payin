@@ -12,17 +12,18 @@ function checkout(){
 	$baseurl = "https://payin.pay2rax.com";	
 	$payin_api_token		="noadf49CKEYSWsBFHZQ0Oe2MPIb1T5"; // For Gtechz Official
 	$vstore_id	="GZ-108"; // For Gtechz Official
+    $pramPost=array();
     if($_POST['source_type']=='paypal'){
         $payin_url="https://payment.pay2rax.com/api/paypal/checkout";
     }elseif($_POST['source_type']=='stripe'){
-        if(!empty($_POST['card_number']) && !empty($_POST['expiration']) && !empty($_POST['cvv'])){
+        // if(!empty($_POST['card_number']) && !empty($_POST['expiration']) && !empty($_POST['cvv'])){
             $payin_url="https://payment.pay2rax.com/api/stripe/checkout";
             $pramPost['card_number'] =$_POST['card_number'];
             $pramPost['expiration'] =$_POST['expiration'];
             $pramPost['cvv'] =$_POST['cvv'];
-        }else{
-            return "Card details is required!";
-        }
+        // }else{
+        //     return "Card details is required!";
+        // }
         
     }elseif($_POST['source_type']=='source1'){
 		$payin_url=$baseurl."/api/V1/";
@@ -31,7 +32,6 @@ function checkout(){
 	}
 	$protocol	= isset($_SERVER["HTTPS"])?'https://':'http://';
 	$referer	= $protocol.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']; 
-	$pramPost=array();
 	$pramPost['client_ip'] =(isset($_SERVER['HTTP_X_FORWARDED_FOR'])?$_SERVER['HTTP_X_FORWARDED_FOR']:$_SERVER['REMOTE_ADDR']);
 	$pramPost["payin_api_token"] = $payin_api_token;
 	$pramPost['vstore_id']	=$vstore_id;
