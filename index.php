@@ -188,7 +188,7 @@ function generateRandomString($length = 3) {
                             <div class="row mb-4">
                                 <label for="price" class="col-md-3 form-label">Amount</label>
                                 <div class="col-md-9">
-									<input class="form-control" required name="price" id="price" placeholder="Enter your Amount" value="100.00" type="text">
+									<input class="form-control" required name="price" id="price" placeholder="Enter your Amount" value="100" type="text">
                                 </div>
                             </div>
                             <div class="row mb-4">
