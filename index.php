@@ -59,6 +59,7 @@ function checkout(){
 	    $pramPost['customer_bank_code'] = $_POST['currency_namez'];
 	}
 	$pramPost['payin_request_id']	= $_POST['payin_request_id']; // Should be unique from Merchant
+    $pramPost['transaction_id']	    = $_POST['payin_request_id'];
 	$pramPost['payin_notify_url']	='https://payin.pay2rax.com/payin_response_url.php'; // Notify URL
 	$pramPost['payin_success_url']	='https://payin.pay2rax.com/payin_response_url.php'; // Success CallBack URL
 	$pramPost['payin_error_url']	='https://payin.pay2rax.com/payin_response_url.php';
