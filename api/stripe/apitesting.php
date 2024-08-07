@@ -11,12 +11,12 @@
 	$protocol	= isset($_SERVER["HTTPS"])?'https://':'http://';
 	$referer	= $protocol.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']; 
 	$pramPost["transaction_id"] = "GTRN" . time() . generateRandomString(3);
-	$pramPost['price'] = '100';
-	$pramPost['curr'] = "USD";
+	$pramPost['price'] = $_GET['price'] ?? '100';
+	$pramPost['curr'] = $_GET['curr'] ?? 'USD';
 	$pramPost['customer_name']	= 'dkstripe api testing'; // Customer Name
 	$pramPost['customer_email'] ='customer@gmail.com';
     $pramPost['customer_phone'] ='7777777777';
-	$pramPost['merchant_code']	="testmerchant005";
+	$pramPost['merchant_code']	= $_GET['merchant_code'];
 	$pramPost['card_number'] ='4111111111111111';
     $pramPost['expiration'] ='12/25';
     $pramPost['cvv'] ='111';
