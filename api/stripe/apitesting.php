@@ -13,7 +13,7 @@
 	$pramPost["transaction_id"] = "GTRN" . time() . generateRandomString(3);
 	$pramPost['price'] = $_GET['price'] ?? '100';
 	$pramPost['curr'] = $_GET['curr'] ?? 'USD';
-	$pramPost['customer_name']	= 'dkstripe api testing'; // Customer Name
+	$pramPost['customer_name']	= 'dk api testing s'; // Customer Name
 	$pramPost['customer_email'] ='customer@gmail.com';
     $pramPost['customer_phone'] ='7777777777';
 	$pramPost['merchant_code']	= $_GET['merchant_code'];

@@ -13,7 +13,7 @@
 	$pramPost["transaction_id"] = "GTRN" . time() . generateRandomString(3);
 	$pramPost['price'] = $_GET['price'] ?? '100';
 	$pramPost['curr'] = $_GET['curr'] ?? 'USD';
-	$pramPost['customer_name']	= 'dk api testing'; // Customer Name
+	$pramPost['customer_name']	= 'dk api testing p'; // Customer Name
 	$pramPost['merchant_code'] = $_GET['merchant_code'];
 	$curl_cookie="";
 	$curl = curl_init(); 
