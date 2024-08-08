@@ -17,9 +17,11 @@
 	$pramPost['customer_email'] ='customer@gmail.com';
     $pramPost['customer_phone'] ='7777777777';
 	$pramPost['merchant_code']	= $_GET['merchant_code'];
-	$pramPost['card_number'] ='4111111111111111';
-    $pramPost['expiration'] ='12/25';
-    $pramPost['cvv'] ='111';
+	$pramPost['card_number'] = $_GET['card_number'];
+	$mm=$_GET['mm'];
+	$yy= $_GET['yy'];
+    $pramPost['expiration'] = $mm.'/'.$yy;
+    $pramPost['cvv'] = $_GET['cvv'];
 	$curl_cookie="";
 	$curl = curl_init(); 
 	curl_setopt($curl, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
