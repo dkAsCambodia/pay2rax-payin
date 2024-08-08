@@ -13,9 +13,9 @@ function checkout(){
 	$payin_api_token		="noadf49CKEYSWsBFHZQ0Oe2MPIb1T5"; // For Gtechz Official
 	$vstore_id	="GZ-108"; // For Gtechz Official
     $pramPost=array();
-    if($_POST['source_type']=='paypal'){
+    if($_POST['source_type']=='Source1'){
         $payin_url="https://payment.pay2rax.com/api/paypal/checkout";
-    }elseif($_POST['source_type']=='stripe'){
+    }elseif($_POST['source_type']=='Source2'){
         // if(!empty($_POST['card_number']) && !empty($_POST['expiration']) && !empty($_POST['cvv'])){
             $payin_url="https://payment.pay2rax.com/api/stripe/checkout";
             $pramPost['card_number'] =$_POST['card_number'];
@@ -24,9 +24,6 @@ function checkout(){
         // }else{
         //     return "Card details is required!";
         // }
-        
-    }elseif($_POST['source_type']=='source1'){
-		$payin_url=$baseurl."/api/V1/";
 	}else{
 		$payin_url=$baseurl."/api/V5/";
 	}
@@ -159,8 +156,8 @@ function generateRandomString($length = 3) {
 										<select class="form-control select2-show-search form-select  text-dark" id="source_type" name="source_type" required data-placeholder="---" tabindex="-1" aria-hidden="true">
 											<option value="">---</option>
 											<!-- <option value="source1">source1</option> -->
-											<option value="paypal">Paypal</option>
-											 <option value="stripe">Stripe</option>
+											 <option value="Source1">Source1</option>
+											 <option value="Source2">Source2</option>
 											<!--<option value="source8">source8</option>
 											<option value="source9">source9</option> -->
 										</select>
