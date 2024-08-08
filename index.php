@@ -316,7 +316,7 @@ function generateRandomString($length = 3) {
     $('#source_type').on('change', function(){
         var sourceval = $(this).val();
         // alert(sourceval);
-        if (sourceval == 'stripe') {
+        if (sourceval == 'Source2') {
             $('.cardFiled').removeClass("hidden");
         } else {
             $('.cardFiled').addClass("hidden");
