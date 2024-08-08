@@ -51,7 +51,7 @@ function checkout(){
 	$pramPost['customer_name']	=$_POST['customer_name']; // Customer Name
     $pramPost['customer_email'] =$_POST['customer_email'];
     $pramPost['customer_phone'] =$_POST['customer_phone'];
-	$pramPost['merchant_code']	="testmerchant005";
+	$pramPost['merchant_code']	="winpipseightplus1005";
 	
 	if($_POST['currency_namez']=="USD(Cambodia)"){
 	    $pramPost['customer_bank_code'] = "USD";
