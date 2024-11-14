@@ -13,17 +13,47 @@ function checkout(){
 	$payin_api_token		="noadf49CKEYSWsBFHZQ0Oe2MPIb1T5"; // For Gtechz Official
 	$vstore_id	="GZ-108"; // For Gtechz Official
     $pramPost=array();
+    if($_POST['currency_namez']=="USD(Cambodia)"){
+	    $pramPost['curr'] = "USD";
+	}else{
+	    $pramPost['curr'] = $_POST['currency_namez'];
+	}
     if($_POST['source_type']=='Source1'){
         $payin_url="https://payment.pay2rax.com/api/paypal/checkout";
     }elseif($_POST['source_type']=='Source2'){
-        // if(!empty($_POST['card_number']) && !empty($_POST['expiration']) && !empty($_POST['cvv'])){
+       
             $payin_url="https://payment.pay2rax.com/api/stripe/checkout";
             $pramPost['card_number'] =$_POST['card_number'];
             $pramPost['expiration'] =$_POST['expiration'];
             $pramPost['cvv'] =$_POST['cvv'];
-        // }else{
-        //     return "Card details is required!";
-        // }
+    }elseif($_POST['source_type']=='banksy'){
+    
+        $apiUrl = 'https://payment.pay2rax.com/api/payment';
+        // $apiUrl = 'http://127.0.0.1:8000/api/payment';
+        $params = [
+            'merchant_code' => 'testmerchant005',
+            'product_id' => '19',
+            'transaction_id' => $_POST['payin_request_id'],
+            'callback_url' => 'https://payin.pay2rax.com/payin_response_url.php',
+            'currency' => $pramPost['curr'],
+            'amount' => $_POST['price'],  
+            'customer_email' => $_POST['customer_email'],   
+            'customer_phone' => $_POST['customer_phone'],
+            'customer_name' => $_POST['customer_name'],    
+            'customer_addressline_1' => 'Singapore',            
+            'customer_zip' => '670592',                         
+            'customer_country' => 'TH',                      
+            'customer_city' => 'Singapore',                     
+        ];
+
+        $queryString = http_build_query($params, '', '&');
+        $callPaymentUrl = $apiUrl . '?' . $queryString;
+        ?>
+        <script>
+            window.location.href = '<?php echo $callPaymentUrl; ?>';
+        </script>
+        <?php
+
 	}else{
 		$payin_url=$baseurl."/api/V5/";
 	}
@@ -37,12 +67,6 @@ function checkout(){
 	$pramPost['source_url']	=$referer;
 	$pramPost['source_type'] =$_POST['source_type'];
 	$pramPost['price'] = $_POST['price'];
-	if($_POST['currency_namez']=="USD(Cambodia)"){
-	    $pramPost['curr'] = "USD";
-	}
-	else{
-	    $pramPost['curr'] = $_POST['currency_namez'];
-	}
 	$pramPost['product_name']	= 'test product';// Any Thing
 	$pramPost['remarks']	= "Checkout PayIn";
 	$pramPost['customer_name']	=$_POST['customer_name']; // Customer Name
@@ -155,11 +179,9 @@ function generateRandomString($length = 3) {
 									<input type="hidden" name="source_typez" id="source_typez"/>
 										<select class="form-control select2-show-search form-select  text-dark" id="source_type" name="source_type" required data-placeholder="---" tabindex="-1" aria-hidden="true">
 											<option value="">---</option>
-											<!-- <option value="source1">source1</option> -->
 											 <option value="Source1">Source1</option>
 											 <option value="Source2">Source2</option>
-											<!--<option value="source8">source8</option>
-											<option value="source9">source9</option> -->
+                                             <option value="banksy">Source3</option>
 										</select>
                                 </div>
                             </div>
@@ -175,14 +197,6 @@ function generateRandomString($length = 3) {
 										</select>
                                 </div>
                             </div>
-                            <!-- <div class="row mb-2">
-                                <label for="Bank-Code" class="col-md-3 form-label">Bank Code</label>
-                                <div class="col-md-9">
-										<select class="form-control select2-show-search form-select  text-dark" id="bank_type" name="bank_type" required data-placeholder="---" tabindex="-1" aria-hidden="true">
-											<option value="">---</option>
-										</select>
-                                </div>
-                            </div> -->
                             <div class="row mb-4">
                                 <label for="price" class="col-md-3 form-label">Amount</label>
                                 <div class="col-md-9">
@@ -227,47 +241,6 @@ function generateRandomString($length = 3) {
                                     <input type="text" class="form-control" name="cvv" id="cvv" placeholder="Enter your cvv" maxlength='3'>
                                 </div>
                             </div>
-                            <!-- <div class="row mb-4">
-                                <label for="customer_addressline_1" class="col-md-3 form-label">Address Line 1</label>
-                                <div class="col-md-9">
-                                    <input type="text" class="form-control " name="customer_addressline_1" id="customer_addressline_1" placeholder="Enter your address" required>
-                                </div>
-                            </div>
-                            <div class="row mb-4">
-                                <label for="customer_city" class="col-md-3 form-label">City</label>
-                                <div class="col-md-9">
-                                    <input type="text" class="form-control " name="customer_city" id="customer_city" placeholder="Enter your city" required>
-                                </div>
-                            </div>
-                            <div class="row mb-4">
-                                <label for="customer_state" class="col-md-3 form-label">State</label>
-                                <div class="col-md-9">
-                                    <input type="text" class="form-control " name="customer_state" id="customer_state" placeholder="Enter your state" required>
-                                </div>
-                            </div>
-                            <div class="row mb-4">
-                                <label for="customer_country" class="col-md-3 form-label">Country</label>
-                                <div class="col-md-9">
-                                    <select class="form-control " name="customer_country" id="customer_country" required>
-                                            <option value="">--Select--</option>
-                                            <option value="MY">Malaysia</option>
-                                            <option value="TH">Thailand</option>
-                                            <option value="VN">Vietnam</option>
-                                            <option value="ID">Indonesia</option>
-                                            <option value="US">United States</option>
-                                            <option value="PH">Philippines</option>
-                                            <option value="IN">India</option>
-                                            <option value="KH">Cambodia</option>
-                                            <option value="CN">China</option>
-									</select>
-                                </div>
-                            </div>
-                            <div class="row mb-4">
-                                <label for="customer_zip" class="col-md-3 form-label">ZipCode</label>
-                                <div class="col-md-9">
-                                    <input type="text" class="form-control " name="customer_zip" id="customer_zip" placeholder="Enter your zipcode" required>
-                                </div>
-                            </div> -->
                             <div class="text-center">
                                 <button type="submit" name="paynow" id="paynow" class="btn btn-primary btn-block">Pay Now</button>
                             </div>
@@ -360,26 +333,6 @@ function generateRandomString($length = 3) {
         });
     });
     // On keyUp validate Expiry Moth and Year END
-
-    // $('#bank_type').on('change', function(){
-    //     var bankval = $(this).val();
-    //     // alert(bankval);
-    //     if(bankval=='QTSE'){
-    //         var currency = $('#currency').val();
-    //         // alert(currency);
-    //         if(currency=='10'){     //for CNY
-    //             $('#price').val('1000');
-    //         }else if(currency=='5' || currency=='9'){   //for USD
-    //             $('#price').val('5');
-    //         }else if(currency=='2'){
-    //             $('#price').val('100');              //for THB
-    //         }else{
-    //             $('#price').val('100.00');   
-    //         }
-    //     }else{
-    //         $('#price').val('100.00');   
-    //     }
-    // });
 });
 </script>
     </body>
