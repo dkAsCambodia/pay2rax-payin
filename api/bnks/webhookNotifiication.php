@@ -35,9 +35,12 @@ if(!empty($results)){
         $query1 = "UPDATE `gtech_payins` SET `orderremarks`='$pt_timestamp', `orderstatus`='$orderstatus', `status`='1', `payin_all`='$payin_all' WHERE orderid='$transaction_id' ";
         mysqli_query($link,$query1);
         // Code for update Deposit Transaction status END
-        echo "Transaction updated Successfully!";
-
+        echo "<pre>"; print_r($results);
+        echo $transaction_id." Transaction updated Successfully!";
+        echo "<br/>";
+        print_r($payin_all);
         // Send To callback URL Code START
+        include("../../connection.php");
         $query2 = "SELECT price,customer_email,payin_request_id,payin_notify_url,
         payin_success_url,payin_error_url,orderid,orderremarks,orderstatus 
         FROM `gtech_payins` WHERE orderid='$transaction_id' ";
@@ -84,15 +87,15 @@ if(!empty($results)){
                 // for Webhook Callback code END
                 
             } else {
-                echo "Callback URL not Found or Invalid Request!";
+                echo $transaction_id." Callback URL not Found or Invalid Request!";
             }
         } else {
-            echo "No Data Available or Invalid Request!";
+            echo $transaction_id." Select query not working or Invalid Request!!";
         }
         // Send To callback URL Code END
        
 
 }else{
-    echo "No Data Available or Invalid Request!";
+    echo "Data Not Found or Invalid Request!";
 }
 ?>
