@@ -29,12 +29,12 @@ function generateRandomString($length = 3)
 $apiUrl = 'https://payment.pay2rax.com/api/gpayout';
 
 $params = [
-    'merchant_code' => 'gpower0001',
+    'merchant_code' => $_GET['merchant_code'],
     'product_id' => '8',     
     'transaction_id' => "GTRN" . time() . generateRandomString(3),
     'callback_url' => 'https://payin.pay2rax.com/payout/payout_response_url.php',
     // 'callback_url' => 'http://localhost/payin/payout/payout_response_url.php',
-    'currency' => 'THB',
+    'currency' => $_GET['currency'],
     'amount' => $_GET['amount'],     //need amount in float two digit
     'customer_name' => $_GET['account_name'],
     'customer_email' => 'sirichai.ewallet@gmail.com',   
