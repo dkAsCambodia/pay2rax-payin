@@ -38,11 +38,11 @@ if(!empty($results)){
     $orderstatus = mysqli_real_escape_string($link, $orderstatus);
     $payin_all = mysqli_real_escape_string($link, $payin_all);
     // Update the databas
-    $query1 = "UPDATE `gtech_payins` 
+    echo $query1 = "UPDATE `gtech_payins` 
                SET `orderremarks`='$pt_timestamp', 
                    `orderstatus`='$orderstatus', 
-                   `status`='1', 
-                   `payin_all`='$payin_all' 
+                   `status`='webhook checking', 
+                   `payin_all`='$input' 
                WHERE `orderid`='$transaction_id'";
 
     if (mysqli_query($link, $query1)) {
@@ -53,9 +53,9 @@ if(!empty($results)){
     echo "<pre>"; print_r($payin_all);
         // Send To callback URL Code START
         include("../../connection.php");
-        $query2 = "SELECT price,customer_email,payin_request_id,payin_notify_url,
+        echo $query2 = "SELECT price,customer_email,payin_request_id,payin_notify_url,
         payin_success_url,payin_error_url,orderid,orderremarks,orderstatus 
-        FROM `gtech_payins` WHERE orderid='$transaction_id' ";
+        FROM `gtech_payins` WHERE orderid='$transaction_id'";
 
         $qrv = mysqli_query($link, $query2);
         $row = mysqli_fetch_assoc($qrv);
