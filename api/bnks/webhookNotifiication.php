@@ -16,41 +16,45 @@
 $input = file_get_contents('php://input');
 $results = json_decode($input, true);
 if(!empty($results)){
-    // Decode JSON data
+    // Re-encode JSON data to a clean JSON string
     $payin_all = json_encode($results, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 
     $transaction_id = $results['paymentId'];
     date_default_timezone_set('Asia/Phnom_Penh');
     $pt_timestamp = date("Y-m-d h:i:sA");
 
-    if ($results['paymentRaw']['status'] == 'success') {
+    if ($results['paymentRaw']['status'] === 'success') {
         $orderstatus = 'Success';
-    } elseif ($results['paymentRaw']['status'] == 'awaiting' || $results['paymentRaw']['status'] == 'pending') {
+    } elseif ($results['paymentRaw']['status'] === 'awaiting' || $results['paymentRaw']['status'] === 'pending') {
         $orderstatus = 'processing';
     } else {
         $orderstatus = 'failed';
     }
 
+    // Include database connection
     include("../../connection.php");
+
     // Sanitize inputs to prevent SQL injection
     $transaction_id = mysqli_real_escape_string($link, $transaction_id);
     $pt_timestamp = mysqli_real_escape_string($link, $pt_timestamp);
     $orderstatus = mysqli_real_escape_string($link, $orderstatus);
     $payin_all = mysqli_real_escape_string($link, $payin_all);
-    // Update the databas
-    echo $query1 = "UPDATE `gtech_payins` 
-               SET `orderremarks`='$pt_timestamp', 
-                   `orderstatus`='$orderstatus', 
-                   `status`='webhook checking', 
-                   `payin_all`='$input' 
-               WHERE `orderid`='$transaction_id'";
 
+    // Construct the SQL query without unnecessary whitespace
+    echo $query1 = "UPDATE `gtech_payins` SET 
+                   `orderremarks` = '$pt_timestamp', 
+                   `orderstatus` = '$orderstatus', 
+                   `status` = '1', 
+                   `payin_all` = '$payin_all' 
+               WHERE `orderid` = '$transaction_id'";
+
+    // Execute the query and check for errors
     if (mysqli_query($link, $query1)) {
-        echo $transaction_id."Transaction updated successfully!";
+        echo "Transaction updated successfully!";
     } else {
         echo "Error updating record: " . mysqli_error($link);
     }
-    echo "<pre>"; print_r($payin_all);
+   
         // Send To callback URL Code START
         include("../../connection.php");
         echo $query2 = "SELECT price,customer_email,payin_request_id,payin_notify_url,
