@@ -17,28 +17,40 @@ $input = file_get_contents('php://input');
 $results = json_decode($input, true);
 if(!empty($results)){
     // Decode JSON data
-    $payin_all=json_encode($results, true);
-    $transaction_id=$results['paymentId'];
+    $payin_all = json_encode($results, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+
+    $transaction_id = $results['paymentId'];
     date_default_timezone_set('Asia/Phnom_Penh');
-    $pt_timestamp=date("Y-m-d h:i:sA");
-   
-        if($results['paymentRaw']['status']=='success'){
-            $orderstatus = 'Success';
-        }elseif($results['paymentRaw']['status']=='awaiting' || $results['paymentRaw']['status']=='pending'){
-            $orderstatus = 'processing';
-        }else{
-            $orderstatus = 'failed';
-        }
-  
-        // Code for update Deposit Transaction status START
-        include("../../connection.php");
-        $query1 = "UPDATE `gtech_payins` SET `orderremarks`='$pt_timestamp', `orderstatus`='$orderstatus', `status`='1', `payin_all`='$payin_all' WHERE orderid='$transaction_id' ";
-        mysqli_query($link,$query1);
-        // Code for update Deposit Transaction status END
-        echo "<pre>"; print_r($results);
-        echo $transaction_id." Transaction updated Successfully!";
-        echo "<br/>";
-        print_r($payin_all);
+    $pt_timestamp = date("Y-m-d h:i:sA");
+
+    if ($results['paymentRaw']['status'] == 'success') {
+        $orderstatus = 'Success';
+    } elseif ($results['paymentRaw']['status'] == 'awaiting' || $results['paymentRaw']['status'] == 'pending') {
+        $orderstatus = 'processing';
+    } else {
+        $orderstatus = 'failed';
+    }
+
+    include("../../connection.php");
+    // Sanitize inputs to prevent SQL injection
+    $transaction_id = mysqli_real_escape_string($link, $transaction_id);
+    $pt_timestamp = mysqli_real_escape_string($link, $pt_timestamp);
+    $orderstatus = mysqli_real_escape_string($link, $orderstatus);
+    $payin_all = mysqli_real_escape_string($link, $payin_all);
+    // Update the databas
+    $query1 = "UPDATE `gtech_payins` 
+               SET `orderremarks`='$pt_timestamp', 
+                   `orderstatus`='$orderstatus', 
+                   `status`='1', 
+                   `payin_all`='$payin_all' 
+               WHERE `orderid`='$transaction_id'";
+
+    if (mysqli_query($link, $query1)) {
+        echo $transaction_id."Transaction updated successfully!";
+    } else {
+        echo "Error updating record: " . mysqli_error($link);
+    }
+    echo "<pre>"; print_r($payin_all);
         // Send To callback URL Code START
         include("../../connection.php");
         $query2 = "SELECT price,customer_email,payin_request_id,payin_notify_url,
