@@ -13,10 +13,15 @@
 //       "createdAt": "2024-11-14T06:32:17.850Z"
 //     }
 //   }
-$input = file_get_contents('php://input');
-$results = json_decode($input, true);
+$rawData = file_get_contents("php://input");
+$cleanData = str_replace("\n", "", $rawData);
+$results = json_decode($cleanData, true);
 if(!empty($results)){
     // Re-encode JSON data to a clean JSON string
+    include("../../connection.php");
+    echo $Query = "UPDATE `gtech_payins` SET `orderremarks`='2024-11-20 05:24:33PM', `orderstatus`='Success', `status`='webhook checking', `payin_all`='{...}' WHERE `orderid`='673db8d4f8657195caf17445'";
+    mysqli_query($link, $Query);
+
     $payin_all = json_encode($results, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 
     $transaction_id = $results['paymentId'];
@@ -32,8 +37,7 @@ if(!empty($results)){
     }
 
     // Include database connection
-    include("../../connection.php");
-
+    
     // Sanitize inputs to prevent SQL injection
     $transaction_id = mysqli_real_escape_string($link, $transaction_id);
     $pt_timestamp = mysqli_real_escape_string($link, $pt_timestamp);
@@ -41,25 +45,19 @@ if(!empty($results)){
     $payin_all = mysqli_real_escape_string($link, $payin_all);
 
     // Construct the SQL query without unnecessary whitespace
-    echo $query1 = "UPDATE `gtech_payins` SET 
-                   `orderremarks` = '$pt_timestamp', 
-                   `orderstatus` = '$orderstatus', 
-                   `status` = '1', 
-                   `payin_all` = '$payin_all' 
-               WHERE `orderid` = '$transaction_id'";
-
-    // Execute the query and check for errors
-    if (mysqli_query($link, $query1)) {
+    include("../../connection.php");
+    $sqlQuery = "UPDATE `gtech_payins` SET `orderremarks` = '$pt_timestamp', `orderstatus` = '$orderstatus', `status` = '1', `payin_all` = '$payin_all' WHERE `orderid` = '$transaction_id'";
+    // Remove newlines from the SQL query
+    echo $cleanQuery = str_replace("\n", " ", $sqlQuery);
+    if (mysqli_query($link, $cleanQuery)) {
         echo "Transaction updated successfully!";
     } else {
         echo "Error updating record: " . mysqli_error($link);
     }
-   
+
         // Send To callback URL Code START
         include("../../connection.php");
-        echo $query2 = "SELECT price,customer_email,payin_request_id,payin_notify_url,
-        payin_success_url,payin_error_url,orderid,orderremarks,orderstatus 
-        FROM `gtech_payins` WHERE orderid='$transaction_id'";
+        echo $query2 = "SELECT price,customer_email,payin_request_id,payin_notify_url,payin_success_url,payin_error_url,orderid,orderremarks,orderstatus FROM `gtech_payins` WHERE orderid='$transaction_id'";
 
         $qrv = mysqli_query($link, $query2);
         $row = mysqli_fetch_assoc($qrv);
