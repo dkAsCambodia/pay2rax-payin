@@ -31,9 +31,10 @@ if(!empty($results)){
     }
 
     include("../../connection.php");
-    $sqlQuery = "UPDATE `gtech_payins` SET `orderremarks` = '$pt_timestamp', `orderstatus` = '$orderstatus', `status` = 'webhook3 Notification', `payin_all` = '$cleanData' WHERE `orderid` = '$transaction_id'";
+    $sqlQuery = "UPDATE `gtech_payins` SET `orderremarks`='$pt_timestamp', `orderstatus`='$orderstatus', `status`='webhook3 Notification', `payin_all`='$cleanData' WHERE `orderid`='$transaction_id'";
     // Remove newlines from the SQL query
     echo $cleanQuery = str_replace("\n", " ", $sqlQuery);
+    mysqli_query($link, $cleanQuery);
     if (mysqli_query($link, $cleanQuery)) {
         echo "Transaction updated successfully!";
     } else {
