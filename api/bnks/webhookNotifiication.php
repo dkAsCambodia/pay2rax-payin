@@ -18,10 +18,7 @@ $cleanData = str_replace("\n", "", $rawData);
 $results = json_decode($cleanData, true);
 if(!empty($results)){
     // Re-encode JSON data to a clean JSON string
-    include("../../connection.php");
-    echo $Query = "UPDATE `gtech_payins` SET `orderremarks`='2024-11-20 05:24:33PM', `orderstatus`='Success', `status`='webhook1 dummy query working', `payin_all`='$cleanData' WHERE `orderid`='6743ee61d1fa5ad147003315'";
-    mysqli_query($link, $Query);
-
+    
     $transaction_id = $results['paymentId'];
     date_default_timezone_set('Asia/Phnom_Penh');
     $pt_timestamp = date("Y-m-d h:i:sA");
@@ -33,18 +30,12 @@ if(!empty($results)){
     } else {
         $orderstatus = 'failed';
     }
-    
-    // Sanitize inputs to prevent SQL injection
-    $transaction_id = mysqli_real_escape_string($link, $transaction_id);
-    $pt_timestamp = mysqli_real_escape_string($link, $pt_timestamp);
-    $orderstatus = mysqli_real_escape_string($link, $orderstatus);
 
-    // Construct the SQL query without unnecessary whitespace
     include("../../connection.php");
-    $sqlQuery = "UPDATE `gtech_payins` SET `orderremarks` = '$pt_timestamp', `orderstatus` = '$orderstatus', `status` = 'webhook1 Notification', `payin_all` = '$cleanData' WHERE `orderid` = '$transaction_id'";
-    // Remove newlines from the SQL query
-    echo $cleanQuery = str_replace("\n", " ", $sqlQuery);
-    if (mysqli_query($link, $cleanQuery)) {
+    echo $Query = "UPDATE `gtech_payins` SET `orderremarks`='$pt_timestamp', `orderstatus`='$orderstatus', `status`='webhook1 Notification', `payin_all`='$cleanData' WHERE `orderid`='$transaction_id'";
+    mysqli_query($link, $Query);
+    
+    if (mysqli_query($link, $Query)) {
         echo "Transaction updated successfully!";
     } else {
         echo "Error updating record: " . mysqli_error($link);
@@ -56,8 +47,8 @@ if(!empty($results)){
 
         $qrv = mysqli_query($link, $query2);
         $row = mysqli_fetch_assoc($qrv);
-        echo "RowData =>"; print_r($row);
-        if (!empty($row)) {
+        echo "qrvData =>"; print_r($qrv);
+        if (!empty($qrv)) {
                 
                 $paymentStatus = $row['orderstatus'];
                 $redirecturl = $row['payin_success_url'];
