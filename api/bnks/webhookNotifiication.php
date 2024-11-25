@@ -19,10 +19,8 @@ $results = json_decode($cleanData, true);
 if(!empty($results)){
     // Re-encode JSON data to a clean JSON string
     include("../../connection.php");
-    echo $Query = "UPDATE `gtech_payins` SET `orderremarks`='2024-11-20 05:24:33PM', `orderstatus`='Success', `status`='webhook checking', `payin_all`='{...}' WHERE `orderid`='673db8d4f8657195caf17445'";
+    echo $Query = "UPDATE `gtech_payins` SET `orderremarks`='2024-11-20 05:24:33PM', `orderstatus`='Success', `status`='webhook1 dummy query working', `payin_all`='$cleanData' WHERE `orderid`='6743ee61d1fa5ad147003315'";
     mysqli_query($link, $Query);
-
-    $payin_all = json_encode($results, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 
     $transaction_id = $results['paymentId'];
     date_default_timezone_set('Asia/Phnom_Penh');
@@ -35,18 +33,15 @@ if(!empty($results)){
     } else {
         $orderstatus = 'failed';
     }
-
-    // Include database connection
     
     // Sanitize inputs to prevent SQL injection
     $transaction_id = mysqli_real_escape_string($link, $transaction_id);
     $pt_timestamp = mysqli_real_escape_string($link, $pt_timestamp);
     $orderstatus = mysqli_real_escape_string($link, $orderstatus);
-    $payin_all = mysqli_real_escape_string($link, $payin_all);
 
     // Construct the SQL query without unnecessary whitespace
     include("../../connection.php");
-    $sqlQuery = "UPDATE `gtech_payins` SET `orderremarks` = '$pt_timestamp', `orderstatus` = '$orderstatus', `status` = '1', `payin_all` = '$payin_all' WHERE `orderid` = '$transaction_id'";
+    $sqlQuery = "UPDATE `gtech_payins` SET `orderremarks` = '$pt_timestamp', `orderstatus` = '$orderstatus', `status` = 'webhook1 Notification', `payin_all` = '$cleanData' WHERE `orderid` = '$transaction_id'";
     // Remove newlines from the SQL query
     echo $cleanQuery = str_replace("\n", " ", $sqlQuery);
     if (mysqli_query($link, $cleanQuery)) {
@@ -61,6 +56,7 @@ if(!empty($results)){
 
         $qrv = mysqli_query($link, $query2);
         $row = mysqli_fetch_assoc($qrv);
+        echo "RowData =>"; print_r($row);
         if (!empty($row)) {
                 
                 $paymentStatus = $row['orderstatus'];
@@ -104,7 +100,7 @@ if(!empty($results)){
                 echo $transaction_id." Callback URL not Found or Invalid Request!";
             }
         } else {
-            echo $transaction_id." Select query not working or Invalid Request!!";
+            echo $transaction_id." Select query not working or Invalid Request!";
         }
         // Send To callback URL Code END
        
