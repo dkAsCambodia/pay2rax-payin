@@ -17,10 +17,10 @@ $rawData = file_get_contents("php://input");
 $cleanData = str_replace("\n", "", $rawData);
 $results = json_decode($cleanData, true);
 if(!empty($results)){
-    $transaction_id = $results['paymentId'];
+    $transaction_id=$results['paymentId'];
     
     include("../../connection.php");
-    echo $Query = "UPDATE `gtech_payins` SET `orderremarks`='2024-11-20 05:24:33PM', `orderstatus`='Success', `status`='webhook2 callback working', `payin_all`='$cleanData' WHERE `orderid`='$transaction_id'";
+    echo $Query = "UPDATE `gtech_payins` SET `orderremarks`='2024-11-20 05:24:33PM', `orderstatus`='Success', `status`='webhook2 callback working', `payin_all`='$cleanData' WHERE `orderid`='67454fa7d1fa5ad147003f0c'";
     mysqli_query($link, $Query);
 
     echo "cleanData =>"; print_r($cleanData);
