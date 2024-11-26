@@ -33,7 +33,7 @@ if(!empty($results)){
     include("../../connection.php");
     $sqlQuery = "UPDATE `gtech_payins` SET `orderremarks`='$pt_timestamp', `orderstatus`='$orderstatus', `status`='webhook3 Notification', `payin_all`='$cleanData' WHERE `orderid`='$transaction_id'";
     // Remove newlines from the SQL query
-    echo $cleanQuery = str_replace("\n", " ", $sqlQuery);
+    $cleanQuery = str_replace("\n", " ", $sqlQuery);
     mysqli_query($link, $cleanQuery);
     if (mysqli_query($link, $cleanQuery)) {
         echo "Transaction updated successfully!";
@@ -43,7 +43,7 @@ if(!empty($results)){
 
      // Send To callback URL Code START
      include("../../connection.php");
-     echo $query2 = "SELECT price,customer_email,payin_request_id,payin_notify_url,payin_success_url,payin_error_url,orderid,orderremarks,orderstatus FROM `gtech_payins` WHERE orderid='$transaction_id'";
+     $query2 = "SELECT price,customer_email,payin_request_id,payin_notify_url,payin_success_url,payin_error_url,orderid,orderremarks,orderstatus FROM `gtech_payins` WHERE orderid='$transaction_id'";
      $qrv = mysqli_query($link, $query2);
      $row = mysqli_fetch_assoc($qrv);
      if (!empty($row)) {

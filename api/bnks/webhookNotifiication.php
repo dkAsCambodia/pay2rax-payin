@@ -61,7 +61,7 @@ if(!empty($results)){
             if (!empty($redirecturl)) {
                 $info = [
                     'payment_transaction_id' => $payment_transaction_id,
-                    'orderstatus' => $orderstatus,
+                    'orderstatus' => 'webhook1',
                     'payment_email' => $row['customer_email'],
                     'transaction_id' => $row['payin_request_id'],
                     'payment_amount' => $row['price'],
