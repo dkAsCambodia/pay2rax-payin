@@ -53,6 +53,33 @@ function checkout(){
             window.location.href = '<?php echo $callPaymentUrl; ?>';
         </script>
         <?php
+    }elseif($_POST['source_type']=='ipint'){
+            
+        $apiUrl = 'https://payment.pay2rax.com/api/payment';
+        // $apiUrl = 'http://127.0.0.1:8000/api/payment';
+        $params = [
+            'merchant_code' => 'testmerchant005',
+            'product_id' => '20',
+            'transaction_id' => $_POST['payin_request_id'],
+            'callback_url' => 'https://payin.pay2rax.com/payin_response_url.php',
+            'currency' => $pramPost['curr'],
+            'amount' => $_POST['price'],  
+            'customer_email' => $_POST['customer_email'],   
+            'customer_phone' => $_POST['customer_phone'],
+            'customer_name' => $_POST['customer_name'],    
+            'customer_addressline_1' => 'Singapore',            
+            'customer_zip' => '670592',                         
+            'customer_country' => 'TH',                      
+            'customer_city' => 'Singapore',                     
+        ];
+        // print_r( $params); die;
+        $queryString = http_build_query($params, '', '&');
+        $callPaymentUrl = $apiUrl . '?' . $queryString;
+        ?>
+        <script>
+            window.location.href = '<?php echo $callPaymentUrl; ?>';
+        </script>
+        <?php
 
 	}else{
 		$payin_url=$baseurl."/api/V5/";
@@ -182,6 +209,7 @@ function generateRandomString($length = 3) {
 											 <option value="Source1">Source1</option>
 											 <option value="Source2">Source2</option>
                                              <option value="banksy">Source3</option>
+                                             <option value="ipint">Source4</option>
 										</select>
                                 </div>
                             </div>
