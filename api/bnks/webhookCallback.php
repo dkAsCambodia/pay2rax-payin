@@ -18,9 +18,9 @@ $cleanData = str_replace("\n", "", $rawData);
 $results = json_decode($cleanData, true);
 if(!empty($results)){
     $transaction_id=$results['paymentId'];
-    
+    sleep(20);
     include("../../connection.php");
-    echo $Query = "UPDATE `gtech_payins` SET `orderremarks`='2024-11-20 05:24:33PM', `orderstatus`='Success', `status`='webhook2 callback working', `payin_all`='$cleanData' WHERE `orderid`='67454fa7d1fa5ad147003f0c'";
+    echo $Query = "UPDATE `gtech_payins` SET `orderremarks`='2024-11-20 05:24:33PM', `orderstatus`='Success', `status`='webhook2 callback working', `payin_all`='$cleanData' WHERE `orderid`='$transaction_id'";
     mysqli_query($link, $Query);
 
     echo "cleanData =>"; print_r($cleanData);
