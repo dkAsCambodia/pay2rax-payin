@@ -32,7 +32,7 @@ if(!empty($results)){
     }
     sleep(20);
     include("../../connection.php");
-    echo $Query = "UPDATE `gtech_payins` SET `orderremarks`='$pt_timestamp', `orderstatus`='$orderstatus', `status`='webhook1 Notification', `payin_all`='$cleanData' WHERE `orderid`='$transaction_id'";
+    $Query = "UPDATE `gtech_payins` SET `orderremarks`='$pt_timestamp', `orderstatus`='$orderstatus', `status`='webhook1 Notification', `payin_all`='$cleanData' WHERE `orderid`='$transaction_id'";
     mysqli_query($link, $Query);
     
     if (mysqli_query($link, $Query)) {
@@ -43,11 +43,10 @@ if(!empty($results)){
 
         // Send To callback URL Code START
         include("../../connection.php");
-        echo $query2 = "SELECT price,customer_email,payin_request_id,payin_notify_url,payin_success_url,payin_error_url,orderid,orderremarks,orderstatus FROM `gtech_payins` WHERE orderid='$transaction_id'";
-
+        $query2 = "SELECT price,customer_email,payin_request_id,payin_notify_url,payin_success_url,payin_error_url,orderid,orderremarks,orderstatus FROM `gtech_payins` WHERE orderid='$transaction_id'";
         $qrv = mysqli_query($link, $query2);
         $row = mysqli_fetch_assoc($qrv);
-        echo "qrvData =>"; print_r($qrv);
+        // echo "qrvData =>"; print_r($qrv);
         if (!empty($qrv)) {
                 
                 $paymentStatus = $row['orderstatus'];
