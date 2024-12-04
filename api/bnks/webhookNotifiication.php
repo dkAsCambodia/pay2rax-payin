@@ -30,7 +30,7 @@ if(!empty($results)){
     } else {
         $orderstatus = 'failed';
     }
-
+    sleep(20);
     include("../../connection.php");
     echo $Query = "UPDATE `gtech_payins` SET `orderremarks`='$pt_timestamp', `orderstatus`='$orderstatus', `status`='webhook1 Notification', `payin_all`='$cleanData' WHERE `orderid`='$transaction_id'";
     mysqli_query($link, $Query);
