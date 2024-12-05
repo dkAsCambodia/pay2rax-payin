@@ -208,8 +208,8 @@ function generateRandomString($length = 3) {
 											<option value="">---</option>
 											 <option value="Source1">Source1</option>
 											 <option value="Source2">Source2</option>
-                                             <option value="banksy">Source3</option>
-                                             <option value="ipint">Source4</option>
+                                             <option value="banksy">Source3 Card Payment</option>
+                                             <option value="ipint">Source4 Crypto Payment</option>
 										</select>
                                 </div>
                             </div>
