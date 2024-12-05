@@ -11,7 +11,7 @@ function generateRandomString($length = 3)
     return $randomString;
 }
 
-$apiUrl = 'https://payin.pay2rax.com/api/payment';
+$apiUrl = 'https://payment.pay2rax.com/api/payment';
 // $apiUrl = 'http://127.0.0.1:8000/api/payment';
 
 $params = [
