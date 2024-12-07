@@ -22,7 +22,8 @@ if(!empty($_POST)){
         $payout_success_url=$_POST['callback_url']; // Success CallBack URL
         $payout_error_url=$_POST['callback_url'];
 
-        date_default_timezone_set('Asia/Kuala_Lumpur');
+        // date_default_timezone_set('Asia/Kuala_Lumpur');
+        date_default_timezone_set('UTC'); //GMT+0
         $dated=date("Y-m-d h:i:sA");
         $Datetime=date("YmdHis");
         $Merchant = $_POST['Merchant'];          // for h2p production
