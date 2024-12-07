@@ -8,7 +8,8 @@ if (!empty($_POST)) {
     $Currency = $_POST['currency'];
     $customer_bank_name = $_POST['customer_bank_name'];
     $Amount = $_POST['amount'];
-    date_default_timezone_set('Asia/Kuala_Lumpur');
+    // date_default_timezone_set('Asia/Kuala_Lumpur');
+    date_default_timezone_set('UTC'); //GMT+0
     $dated=date("Y-m-d H:i:s");
     $Datetime=date("YmdHis");
     //yyyyMMddHHmmss // echo $dated;
