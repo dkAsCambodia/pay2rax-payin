@@ -7,7 +7,7 @@ if (!empty($_SESSION['payin_request_id'])) {
     echo "Session not found!";
 }
 $Transactionid=$_GET['paymentId'];
-$orderstatus='successRedirect';
+$orderstatus='success';
 date_default_timezone_set('Asia/Phnom_Penh');
 $orderremarks=date("Y-m-d h:i:sA");
 
