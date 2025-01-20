@@ -1,4 +1,5 @@
 <?php
+echo "service not available!"; die;
 session_start();
 // print_r($_POST); die;
 if (!empty($_POST)) {
